@@ -11,6 +11,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 /**
  * @method findOrFail($id)
+ * @method static create(mixed $validated)
  */
 class User extends Authenticatable
 {

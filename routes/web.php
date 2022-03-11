@@ -25,10 +25,10 @@ Route::middleware('web')->group(function () {
     });
     Auth::routes();
 
-    Route::resource('/roles', RoleController::class);
+    Route::resource('/roles', RoleController::class)->except('create');
     Route::get('/roles-data', [RoleController::class, 'datatable'])->name('roles.datatable');
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::resource('/users', UserController::class);
 });

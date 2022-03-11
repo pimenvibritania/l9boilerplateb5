@@ -4,14 +4,14 @@ declare(strict_types=1);
 namespace App\Http\Controllers\General;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\General\Permission\PermissionService;
+use App\Http\Services\General\Role\RoleService;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
-use Yajra\DataTables\Facades\DataTables;
 
 /**
  * Class RoleController
@@ -20,22 +20,20 @@ use Yajra\DataTables\Facades\DataTables;
  */
 class RoleController extends Controller
 {
+    public function __construct(
+        private RoleService $roleService,
+        private PermissionService $permissionService
+    ){}
+
     /**
      * @return View
      */
     public function index(): View
     {
-        return view('pages.general.role.index')
-            ->with('roles', Role::all())
-            ->with('permissions', Permission::all());
-    }
+        $roles = $this->roleService->getAll();
+        $permissions = $this->permissionService->getAll();
 
-    /**
-     * @return View
-     */
-    public function create() : View
-    {
-        return $this->index();
+        return view('pages.general.role.index', compact('roles', 'permissions'));
     }
 
     /**
@@ -72,18 +70,6 @@ class RoleController extends Controller
      */
     public function datatable(): JsonResponse
     {
-        $button = '<a href="%s" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>';
-
-        return Datatables::of(Role::with('permissions')->get())
-            ->addIndexColumn()
-            ->addColumn('action', function($row) use ($button) {
-                return $button;
-            })
-            ->rawColumns(['action'])
-            ->addColumn('permissions', function($row) {
-                return $row->permissions->pluck('name')->implode(', ');
-            })
-            ->rawColumns(['action'])
-            ->make(true);
+       return $this->roleService->jsonDatatable();
     }
 }

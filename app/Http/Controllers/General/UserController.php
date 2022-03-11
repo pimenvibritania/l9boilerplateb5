@@ -1,20 +1,51 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers\General;
 
 use App\Http\Controllers\Controller;
-use App\Http\Services\User\UserServiceInterface;
-use Illuminate\Http\Request;
+use App\Http\Services\General\User\UserService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
+/**
+ * Class UserController
+ * @package App\Http\Controllers\General
+ * @author pimenvibritania@gmail.com
+ */
 class UserController extends Controller
 {
-    public function __construct(private UserServiceInterface $userService){}
+    /**
+     * @param UserService $userService
+     */
+    public function __construct(private UserService $userService){}
 
-    public function index()
+    /**
+     * @return Application|Factory|View
+     */
+    public function index(): Application|Factory|View
     {
-        $users = $this->userService->getAll();
-
         return view('pages.general.user.index')
-            ->with(['users' => $users]);
+            ->with(['users' => $this->userService->getAllUser()]);
     }
+
+    /**
+     * @return View
+     */
+    public function create(): View
+    {
+        return view('pages.general.user.create');
+    }
+
+    /**
+     * @return RedirectResponse
+     */
+    public function store(): RedirectResponse
+    {
+        $this->userService->createUser();
+        return redirect()->route('users.index');
+    }
+
 }

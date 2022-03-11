@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Repositories\User;
+namespace App\Http\Repositories\General\User;
 
-use App\Http\Repositories\BaseRepositoryInterface;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
-class ListUserRepository implements BaseRepositoryInterface
+class ListUserRepository
 {
     public function getModel(): string
     {
         return User::class;
     }
 
-    public function getAllUsers(): Collection
+    public function get(): Collection
     {
         return User::all();
     }
