@@ -3,17 +3,12 @@
 namespace App\Http\Repositories\General\User;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 
-class CreateUserRepository
+class CreateUserRepository extends UserRepository
 {
-    public function __construct(private Request $request)
-    {
-    }
-
     public function save(): User
     {
-        return User::create($this->validate());
+        return $this->model->create($this->validate());
     }
 
     private function validate(): array

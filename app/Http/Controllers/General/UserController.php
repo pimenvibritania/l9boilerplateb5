@@ -28,7 +28,7 @@ class UserController extends Controller
     public function index(): Application|Factory|View
     {
         return view('pages.general.user.index')
-            ->with(['users' => $this->userService->getAllUser()]);
+            ->with(['users' => $this->userService->getEntities()]);
     }
 
     /**
@@ -44,7 +44,7 @@ class UserController extends Controller
      */
     public function store(): RedirectResponse
     {
-        $this->userService->createUser();
+        $this->userService->createEntity();
         return redirect()->route('users.index');
     }
 

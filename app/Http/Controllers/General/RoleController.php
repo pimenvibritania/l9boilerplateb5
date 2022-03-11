@@ -30,8 +30,8 @@ class RoleController extends Controller
      */
     public function index(): View
     {
-        $roles = $this->roleService->getAll();
-        $permissions = $this->permissionService->getAll();
+        $roles = $this->roleService->getEntities();
+        $permissions = $this->permissionService->getEntities();
 
         return view('pages.general.role.index', compact('roles', 'permissions'));
     }
@@ -70,6 +70,6 @@ class RoleController extends Controller
      */
     public function datatable(): JsonResponse
     {
-       return $this->roleService->jsonDatatable();
+       return $this->roleService->getJsonDatatable();
     }
 }

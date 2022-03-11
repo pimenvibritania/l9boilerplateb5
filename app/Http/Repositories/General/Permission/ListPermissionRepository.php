@@ -1,14 +1,14 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Repositories\General\Permission;
 
 use Illuminate\Database\Eloquent\Collection;
-use Spatie\Permission\Models\Permission;
 
-class ListPermissionRepository
+class ListPermissionRepository extends PermissionRepository
 {
     public function get(): Collection
     {
-        return Permission::all();
+        return $this->model->all();
     }
 }

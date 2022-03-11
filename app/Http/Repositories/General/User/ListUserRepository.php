@@ -5,15 +5,15 @@ namespace App\Http\Repositories\General\User;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
-class ListUserRepository
+class ListUserRepository extends UserRepository
 {
     public function getModel(): string
     {
-        return User::class;
+        return $this->model::class;
     }
 
     public function get(): Collection
     {
-        return User::all();
+        return $this->model->all();
     }
 }
