@@ -9,3 +9,4 @@
 /.github export-ignore
 CHANGELOG.md export-ignore
 *.css linguist-detectable=false
+*.blade linguist-detectable=false
