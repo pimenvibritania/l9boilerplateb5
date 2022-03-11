@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\General\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\General\RoleController;
 use App\Http\Controllers\HomeController;
@@ -19,7 +20,9 @@ Route::middleware('web')->group(function () {
     Route::get('/', function () {
         return view('welcome');
     });
-
+    Route::get('/template', function () {
+        return view('template');
+    });
     Auth::routes();
 
     Route::resource('/roles', RoleController::class);
@@ -27,4 +30,5 @@ Route::middleware('web')->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
 });
