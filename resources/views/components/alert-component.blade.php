@@ -1,3 +1,5 @@
-<div>
-    <!-- Smile, breathe, and go slowly. - Thich Nhat Hanh -->
+<span class="alert-title">{{ $jancuk }}</span>
+
+<div class="alert alert-danger">
+    {{ $slot }}
 </div>

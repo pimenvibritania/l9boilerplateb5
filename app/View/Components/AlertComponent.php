@@ -15,8 +15,7 @@ class AlertComponent extends Component
      * @return void
      */
     public function __construct(
-        public string $type,
-        public string $message
+
     )
     {
         //

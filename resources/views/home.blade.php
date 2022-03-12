@@ -17,6 +17,16 @@
 
                     {{ __('You are logged in!') }}
                 </div>
+                @php
+                    $as= "asu";
+                @endphp
+                <x-alert-component>
+                    <x-slot:jancuk>
+                        Iki jancuk
+                    </x-slot:jancuk>
+
+                    <strong>Whoops!</strong> Something went wrong!
+                </x-alert-component>
             </div>
         </div>
     </div>

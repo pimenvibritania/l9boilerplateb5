@@ -8,45 +8,18 @@
                     <div class="card-header">{{ __('Create Role') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('roles.store') }}">
+                        <x-form.form-input :action="route('roles.store')" method="POST">
                             @csrf
-
-                            <div class="form-group row">
-                                <label for="name" class="col-md-2 col-form-label text-md-right">Role Name</label>
-                                <div class="col-md-8">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-                                    @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group row mt-3">
-                                <label for="name" class="col-md-2 col-form-label text-md-right">Permissions</label>
-                                <div class="col-md-8">
-                                    <select class="js-example-basic-multiple form-select @error('name') is-invalid @enderror" name="permissions[]" data-placeholder="Choose anything" multiple="multiple">
-                                        @foreach($permissions as $permission)
-                                            <option value="{{ $permission->name }}">{{ $permission->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('permissions')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="form-group row mt-3">
-                                <div class="col-md-8 offset-md-2">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Create') }}
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                            <x-form.text-input name="name" label="Name" :required="true" />
+                            <x-form.select2-input
+                                name="permissions[]"
+                                label="Permissions"
+                                placeholder="Select Permissions"
+                                entity="name"
+                                :multiple="true"
+                                :required="true"
+                                :options="$permissions"/>
+                        </x-form.form-input>
                     </div>
                 </div>
             </div>
@@ -119,12 +92,6 @@
         });
 
     </script>
-
-    <script>
-        $(document).ready(function() {
-            $( '.js-example-basic-multiple' ).select2( {
-                theme: 'bootstrap-5'
-            } );
-        });
-    </script>
 @endpush
+
+
