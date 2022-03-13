@@ -9,23 +9,24 @@
 
                     <div class="card-body">
                         <x-form.form-input :action="route('roles.store')" method="POST">
-                            @csrf
                             <x-form.text-input name="name" label="Name" :required="true" />
                             <x-form.select2-input
                                 name="permissions[]"
                                 label="Permissions"
-                                placeholder="Select Permissions"
+                                placeholder="Select or Type Permissions"
                                 entity="name"
                                 :multiple="true"
                                 :required="true"
                                 :options="$permissions"/>
+
+                            <button class="btn btn-success mt-3" type="submit">Create</button>
                         </x-form.form-input>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row justify-content-center mt-5">
-            <table class="table" id="roles-table">
+        <div class="container-fluid mt-5">
+            <table class="table table-striped table-bordered nowrap" id="roles-table">
                 <thead>
                 <tr>
                     <th>No</th>
@@ -49,6 +50,7 @@
     <script>
         $(function() {
             let table =  $('#roles-table').DataTable({
+                responsive: true,
                 processing: true,
                 serverSide: true,
                 ajax: '{!! route('roles.datatable') !!}',
@@ -73,6 +75,9 @@
                 },
                 order: [[1, 'asc']]
             });
+
+            new $.fn.dataTable.FixedHeader( table );
+
             // Handle form submission event
             $('#btn-example').on('click', function(e){
 

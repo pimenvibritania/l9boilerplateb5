@@ -9,16 +9,6 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
 
     use AuthenticatesUsers;
 
@@ -59,8 +49,6 @@ class LoginController extends Controller
                 $request->session()->put('auth.password_confirmed_at', time());
             }
 
-            #using session
-//            $request->session()->flash('status', 'Task was successful!');
             #using sweetalert
             toast('Your Post as been submited!','success');
 

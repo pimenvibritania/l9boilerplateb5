@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\General\UserController;
+use App\Models\User;
+use App\Notifications\RegisterNotification;
+use App\Notifications\TestNotification;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\General\RoleController;
 use App\Http\Controllers\HomeController;
@@ -15,6 +17,9 @@ use App\Http\Controllers\HomeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+include 'admin/user.php';
+
 Route::middleware('web')->group(function () {
 
     Route::get('/', function () {
@@ -30,5 +35,11 @@ Route::middleware('web')->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    Route::resource('/users', UserController::class);
+    Route::get('/test', function () {
+        User::all()->each->notify(new RegisterNotification());
+
+        return 'done';
+    });
 });
+
+

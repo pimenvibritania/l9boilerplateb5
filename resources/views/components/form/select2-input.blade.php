@@ -1,7 +1,7 @@
 <div>
     <label for="{{ $name }}">{{ $label }}</label>
     <div>
-        <select class="js-example-basic-multiple form-select @error($entity) is-invalid @enderror"
+        <select class="js-example-basic-multiple form-control @error($entity) is-invalid @enderror"
             name="{{ $name }}"
             data-placeholder="{{ $placeholder }}"
             {{ $multiple ? "multiple" : "" }}
